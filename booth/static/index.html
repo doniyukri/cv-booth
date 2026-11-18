@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="/theme.js"></script>
+    <title>CV Booth — Sample Candidate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body class="page-compose">
+    <div class="app">
+      <nav class="sidebar" aria-label="Booth">
+        <div class="workspace">
+          <div class="profile-slot">
+            <button type="button" class="brand profile-switch" id="profile-switch" aria-haspopup="listbox" aria-expanded="false" aria-controls="profile-menu">
+              <span class="mark" id="profile-mark" aria-hidden="true">D</span>
+              <span id="profile-label">Profile</span>
+            </button>
+            <div class="profile-menu" id="profile-menu" role="listbox" aria-label="Profiles" hidden></div>
+          </div>
+          <div class="workspace-tools">
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+              <svg class="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M13.2 10.1A5.4 5.4 0 0 1 6 2.6 5.5 5.5 0 1 0 13.2 10.1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              </svg>
+              <svg class="icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="2.35" stroke="currentColor" stroke-width="1.5" />
+                <path d="M8 1.75v1.5M8 12.75v1.5M1.75 8h1.5M12.75 8h1.5M3.4 3.4l1.05 1.05M11.55 11.55l1.05 1.05M12.6 3.4l-1.05 1.05M4.45 11.55 3.4 12.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </button>
+            <button type="button" class="create" id="focus-yaml" title="Focus the YAML">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 3.25v9.5M3.25 8h9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            </button>
+          </div>
+        </div>
+        <a class="nav-link active" href="/" id="nav-compose" aria-current="page">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="5.25" stroke="currentColor" stroke-width="1.5" />
+            <circle cx="8" cy="8" r="1.6" fill="currentColor" />
+          </svg>
+          Compose
+        </a>
+        <a class="nav-link" href="#applied" id="nav-applied">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2.75 3.5h10.5v7.25H8.2L5.4 13v-2.25H2.75V3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+          </svg>
+          Applied
+          <span class="badge" id="applied-count" hidden>0</span>
+        </a>
+        <a class="nav-link" href="/style">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 4.5h10M3 8h10M3 11.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <circle cx="6" cy="4.5" r="1.35" fill="var(--canvas)" stroke="currentColor" stroke-width="1.5" />
+            <circle cx="10" cy="8" r="1.35" fill="var(--canvas)" stroke="currentColor" stroke-width="1.5" />
+            <circle cx="7" cy="11.5" r="1.35" fill="var(--canvas)" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          Styling
+        </a>
+        <a class="nav-link" href="#profile" id="nav-profile">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="5.5" r="2.1" stroke="currentColor" stroke-width="1.5" />
+            <path d="M3.4 12.6c.7-2.1 2.4-3.1 4.6-3.1s3.9 1 4.6 3.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          Profile
+        </a>
+        <p class="sidebar-foot">Harvard · one page<br />Local · any AI assistant</p>
+      </nav>
+
+      <main class="panel">
+        <section class="view" id="view-compose">
+        <header class="bar">
+          <div class="crumb">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="5.25" stroke="currentColor" stroke-width="1.5" />
+              <path d="M5.5 8.2 7.1 9.8 10.6 6.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Compose
+          </div>
+          <div class="crumb-meta">Docket <b id="docket-no">0000</b></div>
+        </header>
+
+        <div class="work">
+          <section class="composer">
+            <div class="section-label">
+              <span>AI YAML slice</span>
+              <span class="slice-actions">
+                <button type="button" class="btn" id="paste-clipboard">Paste clipboard</button>
+                <button type="button" class="btn" id="reset">Reset input</button>
+              </span>
+            </div>
+            <label class="sr" for="yaml" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">YAML paste</label>
+            <textarea
+              id="yaml"
+              spellcheck="false"
+              placeholder="position: Frontend Engineer
+company: GoTo
+
+headline: Frontend Engineer
+profile:
+  - Tailored summary for this job...
+experience:
+  - company: Example Company
+    position: Software Engineer
+    start_date: 2022-08
+    end_date: present
+    highlights:
+      - Bullet rewritten for this vacancy
+skills:
+  - label: Frontend
+    details: Vue.js, React.js, Next.js"
+            ></textarea>
+          </section>
+          <div class="properties-resize" role="separator" aria-orientation="vertical" aria-label="Resize properties" aria-valuemin="250" aria-valuenow="250" tabindex="0"></div>
+          <aside class="properties">
+            <div class="prop-head">Actions</div>
+            <div class="actions">
+              <button type="button" class="btn primary" id="render">Download PDF</button>
+              <button type="button" class="btn" id="preview">Preview <kbd>Ctrl+Enter</kbd></button>
+              <button type="button" class="btn" id="copy-prompt">Copy AI prompt</button>
+            </div>
+            <div class="status" id="status" role="status"></div>
+            <p class="help">
+              Copy the prompt into your preferred AI assistant with the job description, then paste its YAML here.
+              Design stays locked on the master unless you change it on the styling page.
+              Extra YAML keys are rejected. A proof of two or more pages shows every page. Download stays blocked until the CV is one page.
+            </p>
+            <div class="prop-head">Paper</div>
+            <div class="paper" role="radiogroup" aria-label="Paper size">
+              <label>
+                <input type="radio" name="page-size" value="letter" checked />
+                Letter
+              </label>
+              <label>
+                <input type="radio" name="page-size" value="a4" />
+                A4
+              </label>
+            </div>
+            <p class="help">
+              Letter is the default. Switch to A4 if the proof overflows to two pages.
+              The PDF name comes from <code>position</code> and <code>company</code>. Those two keys are required.
+            </p>
+          </aside>
+        </div>
+        </section>
+
+        <section class="view" id="view-applied" hidden>
+          <header class="bar">
+            <div class="crumb">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2.75 3.5h10.5v7.25H8.2L5.4 13v-2.25H2.75V3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              </svg>
+              Applied
+            </div>
+            <label class="applied-search">
+              <span class="sr-only">Search company or job</span>
+              <input id="applied-search" type="search" placeholder="Company or job" autocomplete="off" enterkeyhint="search" />
+            </label>
+            <div class="crumb-meta" id="applied-meta"></div>
+          </header>
+          <div class="ledger" id="applied">
+            <p class="empty" id="applied-empty" hidden>No applications on file yet.</p>
+            <div id="applied-list"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-profile" hidden>
+          <header class="bar">
+            <div class="crumb">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="5.5" r="2.1" stroke="currentColor" stroke-width="1.5" />
+                <path d="M3.4 12.6c.7-2.1 2.4-3.1 4.6-3.1s3.9 1 4.6 3.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              Profile
+            </div>
+            <div class="crumb-meta" id="profile-meta"></div>
+          </header>
+          <div class="work">
+            <section class="composer">
+              <div class="section-label">
+                <span>Master CV</span>
+                <span class="slice-actions">
+                  <button type="button" class="btn" id="copy-master-prompt">Copy master prompt</button>
+                  <button type="button" class="btn" id="save-master">Save master</button>
+                </span>
+              </div>
+              <label class="sr" for="master-yaml" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Master YAML</label>
+              <textarea id="master-yaml" spellcheck="false" placeholder="cv:
+  name: Your Name"></textarea>
+              <details class="prompt-fold" id="master-prompt-fold">
+                <summary>Master prompt</summary>
+                <pre id="master-prompt-text"></pre>
+              </details>
+            </section>
+            <div class="properties-resize" role="separator" aria-orientation="vertical" aria-label="Resize properties" aria-valuemin="250" aria-valuenow="250" tabindex="0"></div>
+            <aside class="properties">
+              <div class="prop-head">Profiles</div>
+              <ul class="profile-list" id="profile-list"></ul>
+              <label class="field" for="new-profile-name">New profile</label>
+              <input class="text-input" id="new-profile-name" autocomplete="name" placeholder="Full name" />
+              <button type="button" class="btn" id="create-profile">Create profile</button>
+              <div class="status" id="profile-status" role="status"></div>
+              <p class="help">
+                Copy the master prompt into your preferred AI assistant with this person's background. Paste the YAML it returns here and save.
+                Saving replaces only this profile's master. Switching profiles drops unsaved edits in this box. A job paste on Compose does not write the master.
+              </p>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="proof-modal">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="proof-title">
+        <header class="bar">
+          <h2 id="proof-title" class="crumb">Proof</h2>
+          <span class="hint crumb-meta" id="proof-meta"></span>
+          <div class="zoom" role="group" aria-label="Zoom">
+            <button type="button" class="btn" id="zoom-out" aria-label="Zoom out">−</button>
+            <span id="zoom-label">Fit</span>
+            <button type="button" class="btn" id="zoom-in" aria-label="Zoom in">+</button>
+            <button type="button" class="btn" id="zoom-fit">Fit</button>
+          </div>
+          <button type="button" class="btn" id="proof-close">Close</button>
+        </header>
+        <div class="modal-stage" id="proof-stage">
+          <div class="proof-stack" id="proof-stack"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/profile.js"></script>
+    <script src="/properties.js"></script>
+    <script>
+      const yamlEl = document.getElementById("yaml");
+      const statusEl = document.getElementById("status");
+      const copyBtn = document.getElementById("copy-prompt");
+      const resetBtn = document.getElementById("reset");
+      const pasteBtn = document.getElementById("paste-clipboard");
+      const previewBtn = document.getElementById("preview");
+      const renderBtn = document.getElementById("render");
+      const proofModal = document.getElementById("proof-modal");
+      const proofStack = document.getElementById("proof-stack");
+      const proofMeta = document.getElementById("proof-meta");
+      const proofClose = document.getElementById("proof-close");
+      const proofStage = document.getElementById("proof-stage");
+      const zoomLabel = document.getElementById("zoom-label");
+      const zoomInBtn = document.getElementById("zoom-in");
+      const zoomOutBtn = document.getElementById("zoom-out");
+      const zoomFitBtn = document.getElementById("zoom-fit");
+      const ZOOMS = [1, 1.25, 1.5, 2, 3];
+      let zoomIndex = 0;
+      let panX = 0;
+      let panY = 0;
+      let panning = false;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panOriginX = 0;
+      let panOriginY = 0;
+      const STORE_YAML = "cvbooth.public.v1.yaml";
+      const STORE_PAPER = "cvbooth.public.v1.pageSize";
+      const STORE_STYLE = "cvbooth.public.v1.style";
+      let profileId = "default";
+      let draftsLive = false;
+      const viewCompose = document.getElementById("view-compose");
+      const viewApplied = document.getElementById("view-applied");
+      const viewProfile = document.getElementById("view-profile");
+      const navCompose = document.getElementById("nav-compose");
+      const navApplied = document.getElementById("nav-applied");
+      const navProfile = document.getElementById("nav-profile");
+      const masterEl = document.getElementById("master-yaml");
+      const profileStatus = document.getElementById("profile-status");
+      const profileMeta = document.getElementById("profile-meta");
+      const profileList = document.getElementById("profile-list");
+      const masterPromptText = document.getElementById("master-prompt-text");
+      let loadedMasterId = "";
+      const appliedList = document.getElementById("applied-list");
+      const appliedEmpty = document.getElementById("applied-empty");
+      const appliedMeta = document.getElementById("applied-meta");
+      const appliedCount = document.getElementById("applied-count");
+      const appliedSearch = document.getElementById("applied-search");
+      const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let applications = [];
+
+      function selectedPaper() {
+        return document.querySelector('input[name="page-size"]:checked').value;
+      }
+
+      function draftKey(base) {
+        return window.cvboothProfile.key(base, profileId);
+      }
+
+      function saveDraft() {
+        if (!draftsLive) return;
+        localStorage.setItem(draftKey(STORE_YAML), yamlEl.value);
+        localStorage.setItem(draftKey(STORE_PAPER), selectedPaper());
+      }
+
+      function loadDraft() {
+        const saved = localStorage.getItem(draftKey(STORE_YAML));
+        yamlEl.value = saved == null ? "" : saved;
+        const paper = localStorage.getItem(draftKey(STORE_PAPER)) || "letter";
+        const input = document.querySelector('input[name="page-size"][value="' + paper + '"]');
+        if (input) input.checked = true;
+      }
+
+      document.getElementById("docket-no").textContent = String(
+        new Date().getFullYear() * 100 + (new Date().getMonth() + 1)
+      ).slice(-4);
+
+      function setStatus(text, kind) {
+        statusEl.textContent = text;
+        statusEl.className = "status" + (kind ? " " + kind : "");
+      }
+
+      copyBtn.addEventListener("click", async () => {
+        copyBtn.disabled = true;
+        setStatus("Setting the contract…");
+        try {
+          const res = await fetch("/api/prompt?id=" + encodeURIComponent(profileId));
+          const data = await res.json();
+          if (!res.ok) throw new Error((data.errors || ["Could not build prompt"]).join("\n"));
+          await navigator.clipboard.writeText(data.prompt);
+          setStatus("AI prompt copied. Paste it into your preferred AI assistant, then add the job description.", "ok");
+        } catch (err) {
+          setStatus(String(err.message || err), "err");
+        } finally {
+          copyBtn.disabled = false;
+        }
+      });
+
+      function viewFromHash() {
+        if (location.hash === "#applied") return "applied";
+        if (location.hash === "#profile" || location.hash === "#new-profile") return "profile";
+        return "compose";
+      }
+
+      function showView(name) {
+        const view = name === "applied" || name === "profile" ? name : "compose";
+        viewCompose.hidden = view !== "compose";
+        viewApplied.hidden = view !== "applied";
+        viewProfile.hidden = view !== "profile";
+        navCompose.classList.toggle("active", view === "compose");
+        navApplied.classList.toggle("active", view === "applied");
+        navProfile.classList.toggle("active", view === "profile");
+        [navCompose, navApplied, navProfile].forEach((link) => link.removeAttribute("aria-current"));
+        const current = view === "applied" ? navApplied : view === "profile" ? navProfile : navCompose;
+        current.setAttribute("aria-current", "page");
+        const hash = view === "compose" ? "" : "#" + view;
+        const keepNewProfile = view === "profile" && location.hash === "#new-profile";
+        if (!keepNewProfile && (location.hash || "") !== hash) {
+          history.replaceState(null, "", hash || location.pathname);
+        }
+        if (view === "profile") {
+          loadMaster(false).catch((err) => setProfileStatus(String(err.message || err), "err"));
+        }
+      }
+
+      function setProfileStatus(text, kind) {
+        profileStatus.textContent = text;
+        profileStatus.className = "status" + (kind ? " " + kind : "");
+      }
+
+      function renderProfileList(profiles, active) {
+        profileList.replaceChildren();
+        (profiles || []).forEach((profile) => {
+          const item = document.createElement("li");
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = profile.name;
+          button.className = profile.id === active ? "is-current" : "";
+          button.addEventListener("click", () => {
+            if (profile.id === profileId) return;
+            window.cvboothProfile.select(profile.id);
+          });
+          item.append(button);
+          profileList.append(item);
+        });
+      }
+
+      async function loadMaster(force) {
+        if (!force && loadedMasterId === profileId) return;
+        const requested = profileId;
+        const query = "?id=" + encodeURIComponent(requested);
+        const [masterRes, promptRes] = await Promise.all([
+          fetch("/api/master" + query),
+          fetch("/api/master-prompt" + query),
+        ]);
+        const master = await masterRes.json();
+        const prompt = await promptRes.json();
+        if (requested !== profileId) return;
+        if (!masterRes.ok) throw new Error((master.errors || ["Could not read the master."]).join("\n"));
+        if (!promptRes.ok) throw new Error((prompt.errors || ["Could not build the master prompt."]).join("\n"));
+        if (master.id && master.id !== requested) return;
+        masterEl.value = master.yaml || "";
+        masterPromptText.textContent = prompt.prompt || "";
+        profileMeta.textContent = master.name || "";
+        loadedMasterId = requested;
+      }
+
+      function yamlField(text, key) {
+        const match = text.match(new RegExp("^" + key + ":\\s*(.+)$", "mi"));
+        if (!match) return "";
+        let value = match[1].trim();
+        const quote = value[0];
+        if ((quote === "'" || quote === '"') && value.endsWith(quote) && value.length >= 2) {
+          value = value.slice(1, -1);
+          if (quote === "'") value = value.replace(/''/g, "'");
+        }
+        return value.trim();
+      }
+
+      function formatDay(iso) {
+        const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+        if (!match) return iso || "";
+        const month = MONTHS[Number(match[2]) - 1];
+        const day = Number(match[3]);
+        if (!month || !day) return iso;
+        return day + " " + month + " " + match[1];
+      }
+
+      function rowTime(when) {
+        const match = /T(\d{2}:\d{2})/.exec(when || "");
+        return match ? match[1] : "";
+      }
+
+      function matchesSearch(row, query) {
+        if (!query) return true;
+        const hay = (row.company + " " + row.position).toLowerCase();
+        return query.split(/\s+/).every((part) => hay.includes(part));
+      }
+
+      function fillHighlight(element, text, query) {
+        const parts = query ? query.split(/\s+/).filter(Boolean) : [];
+        if (!parts.length) {
+          element.textContent = text;
+          return;
+        }
+        const lower = text.toLowerCase();
+        const ranges = [];
+        parts.forEach((part) => {
+          let from = 0;
+          while (from < lower.length) {
+            const at = lower.indexOf(part, from);
+            if (at < 0) break;
+            ranges.push([at, at + part.length]);
+            from = at + part.length;
+          }
+        });
+        ranges.sort((left, right) => left[0] - right[0] || left[1] - right[1]);
+        const merged = [];
+        ranges.forEach((range) => {
+          const last = merged[merged.length - 1];
+          if (last && range[0] <= last[1]) last[1] = Math.max(last[1], range[1]);
+          else merged.push(range.slice());
+        });
+        let cursor = 0;
+        const nodes = [];
+        merged.forEach((range) => {
+          if (range[0] > cursor) nodes.push(document.createTextNode(text.slice(cursor, range[0])));
+          const mark = document.createElement("mark");
+          mark.className = "hit";
+          mark.textContent = text.slice(range[0], range[1]);
+          nodes.push(mark);
+          cursor = range[1];
+        });
+        if (cursor < text.length) nodes.push(document.createTextNode(text.slice(cursor)));
+        element.replaceChildren(...nodes);
+      }
+
+      function renderApplied() {
+        const company = yamlField(yamlEl.value, "company").toLowerCase();
+        const position = yamlField(yamlEl.value, "position").toLowerCase();
+        const query = appliedSearch.value.trim().toLowerCase();
+        appliedList.replaceChildren();
+        let match = null;
+        let day = null;
+        applications.forEach((row) => {
+          const isRepeat =
+            company &&
+            position &&
+            row.company.toLowerCase() === company &&
+            row.position.toLowerCase() === position;
+          if (isRepeat) match = row;
+          if (!matchesSearch(row, query)) return;
+          if (!day || day.date !== row.date) {
+            const section = document.createElement("section");
+            section.className = "day";
+            const header = document.createElement("header");
+            const title = document.createElement("h2");
+            title.className = "group-title";
+            title.textContent = formatDay(row.date);
+            const hint = document.createElement("span");
+            hint.className = "hint";
+            const list = document.createElement("ol");
+            header.append(title, hint);
+            section.append(header, list);
+            appliedList.append(section);
+            day = { date: row.date, hint, list, count: 0 };
+          }
+          const item = document.createElement("li");
+          item.className = isRepeat ? "row repeat" : "row";
+          const when = document.createElement("time");
+          when.className = "when";
+          when.dateTime = row.when || row.date;
+          when.textContent = rowTime(row.when) || formatDay(row.date);
+          const firm = document.createElement("span");
+          firm.className = "company";
+          fillHighlight(firm, row.company, query);
+          const role = document.createElement("span");
+          role.className = "role";
+          fillHighlight(role, row.position, query);
+          if (row.count > 1) {
+            const count = document.createElement("span");
+            count.className = "count";
+            count.textContent = "×" + row.count;
+            firm.append(count);
+          }
+          item.append(when, firm, role);
+          day.list.append(item);
+          day.count += 1;
+          day.hint.textContent = String(day.count);
+        });
+        const total = applications.length;
+        const shown = appliedList.querySelectorAll(".row").length;
+        appliedEmpty.textContent = total === 0
+          ? "No applications on file yet."
+          : "No applications match that search.";
+        appliedEmpty.hidden = shown !== 0;
+        appliedList.hidden = shown === 0;
+        appliedCount.hidden = total === 0;
+        appliedCount.textContent = String(total);
+        if (query) {
+          appliedMeta.textContent = shown === 0 ? "No matches" : shown + (shown === 1 ? " match" : " matches");
+        } else if (match) {
+          appliedMeta.textContent = "already on file · " + formatDay(match.date);
+        } else {
+          appliedMeta.textContent = total === 0 ? "" : total + " on file";
+        }
+      }
+
+      async function loadApplications() {
+        const requested = profileId;
+        try {
+          const res = await fetch("/api/applications?id=" + encodeURIComponent(requested));
+          const data = await res.json();
+          if (requested !== profileId) return;
+          if (!res.ok) throw new Error((data.errors || ["Could not read applications"]).join("\n"));
+          applications = data.applications || [];
+          renderApplied();
+        } catch (err) {
+          if (requested !== profileId) return;
+          applications = [];
+          renderApplied();
+        }
+      }
+
+      function savedStyle() {
+        try {
+          return JSON.parse(localStorage.getItem(draftKey(STORE_STYLE)) || "null");
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function payload() {
+        return {
+          yaml: yamlEl.value,
+          page_size: selectedPaper(),
+          style: savedStyle(),
+          profile_id: profileId,
+        };
+      }
+
+      async function postJob(path) {
+        if (path === "/api/render" && !yamlEl.value.trim()) {
+          throw new Error("Paste YAML that includes position and company.");
+        }
+        const res = await fetch(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload()),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({ errors: ["Render failed."] }));
+          throw new Error((data.errors || ["Render failed."]).join("\n"));
+        }
+        return res;
+      }
+
+      function applyZoom() {
+        const scale = ZOOMS[zoomIndex];
+        proofStack.style.transform =
+          "translate(" + panX + "px, " + panY + "px) scale(" + scale + ")";
+        zoomLabel.textContent = Math.round(scale * 100) + "%";
+        zoomOutBtn.disabled = zoomIndex === 0;
+        zoomInBtn.disabled = zoomIndex === ZOOMS.length - 1;
+        zoomFitBtn.disabled = zoomIndex === 0;
+        proofStage.classList.toggle("can-pan", scale > 1);
+      }
+
+      function fitStack() {
+        const bounds = proofStage.getBoundingClientRect();
+        const images = [...proofStack.querySelectorAll("img")];
+        if (!images.length || bounds.width < 40 || bounds.height < 40) return;
+        const gap = 12;
+        const pad = 32;
+        const maxW = bounds.width - pad;
+        const maxHEach = (bounds.height - pad - gap * (images.length - 1)) / images.length;
+        images.forEach((img) => {
+          const nw = img.naturalWidth;
+          const nh = img.naturalHeight;
+          if (!nw || !nh) return;
+          const fitted = Math.min(maxW / nw, maxHEach / nh);
+          img.style.width = Math.floor(nw * fitted) + "px";
+          img.style.height = Math.floor(nh * fitted) + "px";
+        });
+      }
+
+      function renderProof(pngs) {
+        proofStack.replaceChildren();
+        const jobs = pngs.map((png, i) => new Promise((resolve) => {
+          const img = document.createElement("img");
+          img.alt = "CV preview, page " + (i + 1) + " of " + pngs.length;
+          img.draggable = false;
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+          img.src = "data:image/png;base64," + png;
+          proofStack.appendChild(img);
+        }));
+        return Promise.all(jobs);
+      }
+
+      function setZoom(index) {
+        zoomIndex = Math.max(0, Math.min(ZOOMS.length - 1, index));
+        if (zoomIndex === 0) {
+          panX = 0;
+          panY = 0;
+        }
+        applyZoom();
+      }
+
+      function openModal() {
+        setZoom(0);
+        proofModal.classList.add("open");
+        document.body.classList.add("modal-open");
+        proofClose.focus();
+      }
+
+      function closeModal() {
+        proofModal.classList.remove("open");
+        document.body.classList.remove("modal-open");
+        previewBtn.focus();
+      }
+
+      async function previewPage() {
+        previewBtn.disabled = true;
+        setStatus("Pulling the proof…");
+        try {
+          const res = await postJob("/api/preview");
+          const data = await res.json();
+          const shots = data.pages || [];
+          if (!shots.length) throw new Error("No preview page.");
+          await renderProof(shots);
+          const pages = data.pageCount || shots.length;
+          const size = (data.pageSize || "letter").toUpperCase();
+          proofMeta.textContent = size + " · " + pages + (pages === 1 ? " page" : " pages");
+          openModal();
+          fitStack();
+          setStatus(pages === 1 ? "Proof ready on " + size + "." : pages + " pages. Download stays blocked until it is one page.", pages === 1 ? "ok" : "err");
+        } catch (err) {
+          setStatus(String(err.message || err), "err");
+        } finally {
+          previewBtn.disabled = false;
+        }
+      }
+
+      async function renderPdf() {
+        renderBtn.disabled = true;
+        previewBtn.disabled = true;
+        setStatus("Printing…");
+        try {
+          const res = await postJob("/api/render");
+          const blob = await res.blob();
+          const filename = res.headers.get("X-Filename") || "CV.pdf";
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          const archived = res.headers.get("X-Archive");
+          setStatus(
+            archived
+              ? "Printed " + filename + ". Logged for this profile as " + archived
+              : "Printed " + filename,
+            "ok"
+          );
+          loadApplications();
+        } catch (err) {
+          setStatus(String(err.message || err), "err");
+        } finally {
+          renderBtn.disabled = false;
+          previewBtn.disabled = false;
+        }
+      }
+
+      function applyProfile(detail) {
+        const next = detail.active || "default";
+        const changed = next !== profileId;
+        if (changed) {
+          loadedMasterId = "";
+          setProfileStatus("");
+        }
+        profileId = next;
+        renderProfileList(detail.profiles, profileId);
+        loadDraft();
+        loadApplications();
+        if (!viewProfile.hidden && loadedMasterId !== profileId) {
+          loadMaster(true).catch((err) => setProfileStatus(String(err.message || err), "err"));
+        }
+      }
+
+      document.addEventListener("cvbooth:profile-save", saveDraft);
+      document.addEventListener("cvbooth:profile", (event) => applyProfile(event.detail));
+      document.addEventListener("cvbooth:profile-error", (event) => {
+        const message = (event.detail && event.detail.message) || "Could not switch profile.";
+        if (!viewProfile.hidden) setProfileStatus(message, "err");
+        else setStatus(message, "err");
+      });
+      document.addEventListener("cvbooth:edit-master", () => showView("profile"));
+      document.addEventListener("cvbooth:new-profile", () => {
+        showView("profile");
+        document.getElementById("new-profile-name").focus();
+      });
+      window.cvboothProfile.ready.then((data) => {
+        applyProfile({ active: data.active, profiles: data.profiles });
+        draftsLive = true;
+        showView(viewFromHash());
+        if (location.hash === "#new-profile") document.getElementById("new-profile-name").focus();
+      }).catch((err) => {
+        loadDraft();
+        draftsLive = true;
+        setStatus(String(err.message || err), "err");
+      });
+      navCompose.addEventListener("click", (event) => {
+        event.preventDefault();
+        showView("compose");
+      });
+      navApplied.addEventListener("click", (event) => {
+        event.preventDefault();
+        showView("applied");
+      });
+      navProfile.addEventListener("click", (event) => {
+        event.preventDefault();
+        showView("profile");
+      });
+      document.getElementById("focus-yaml").addEventListener("click", () => {
+        showView("compose");
+        yamlEl.focus();
+      });
+      yamlEl.addEventListener("input", () => {
+        saveDraft();
+        renderApplied();
+      });
+      appliedSearch.addEventListener("input", renderApplied);
+      document.querySelectorAll('input[name="page-size"]').forEach((input) => {
+        input.addEventListener("change", saveDraft);
+      });
+      pasteBtn.addEventListener("click", async () => {
+        pasteBtn.disabled = true;
+        try {
+          const text = await navigator.clipboard.readText();
+          yamlEl.value = text;
+          saveDraft();
+          renderApplied();
+          setStatus(text.trim() ? "Replaced the YAML with the clipboard." : "Clipboard was empty. Input cleared.", text.trim() ? "ok" : "err");
+        } catch (err) {
+          setStatus("Could not read the clipboard. Allow clipboard access and try again.", "err");
+        } finally {
+          pasteBtn.disabled = false;
+        }
+      });
+      resetBtn.addEventListener("click", () => {
+        yamlEl.value = "";
+        document.querySelector('input[name="page-size"][value="letter"]').checked = true;
+        localStorage.removeItem(draftKey(STORE_YAML));
+        localStorage.removeItem(draftKey(STORE_PAPER));
+        renderApplied();
+        setStatus("Input cleared. Paper reset to Letter.", "ok");
+      });
+
+      previewBtn.addEventListener("click", previewPage);
+      renderBtn.addEventListener("click", renderPdf);
+      proofClose.addEventListener("click", closeModal);
+      proofModal.querySelector("[data-close]").addEventListener("click", closeModal);
+      zoomInBtn.addEventListener("click", () => setZoom(zoomIndex + 1));
+      zoomOutBtn.addEventListener("click", () => setZoom(zoomIndex - 1));
+      zoomFitBtn.addEventListener("click", () => setZoom(0));
+      proofStage.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        setZoom(zoomIndex + (event.deltaY > 0 ? -1 : 1));
+      }, { passive: false });
+      proofStage.addEventListener("pointerdown", (event) => {
+        if (ZOOMS[zoomIndex] === 1 || event.button !== 0) return;
+        panning = true;
+        panStartX = event.clientX;
+        panStartY = event.clientY;
+        panOriginX = panX;
+        panOriginY = panY;
+        proofStage.classList.add("panning");
+        proofStage.setPointerCapture(event.pointerId);
+      });
+      proofStage.addEventListener("pointermove", (event) => {
+        if (!panning) return;
+        panX = panOriginX + (event.clientX - panStartX);
+        panY = panOriginY + (event.clientY - panStartY);
+        applyZoom();
+      });
+      function endPan() {
+        panning = false;
+        proofStage.classList.remove("panning");
+      }
+      proofStage.addEventListener("pointerup", endPan);
+      proofStage.addEventListener("pointercancel", endPan);
+      window.addEventListener("resize", () => {
+        if (proofModal.classList.contains("open")) fitStack();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (proofModal.classList.contains("open") && (event.key === "+" || event.key === "=")) {
+          event.preventDefault();
+          setZoom(zoomIndex + 1);
+          return;
+        }
+        if (proofModal.classList.contains("open") && event.key === "-") {
+          event.preventDefault();
+          setZoom(zoomIndex - 1);
+          return;
+        }
+        if (event.key === "Escape" && proofModal.classList.contains("open")) {
+          event.preventDefault();
+          closeModal();
+          return;
+        }
+        if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+          event.preventDefault();
+          previewPage();
+        }
+      });
+      document.getElementById("copy-master-prompt").addEventListener("click", async () => {
+        const button = document.getElementById("copy-master-prompt");
+        button.disabled = true;
+        try {
+          if (!masterPromptText.textContent) await loadMaster(true);
+          const text = masterPromptText.textContent;
+          if (!text.trim()) throw new Error("The master prompt is empty.");
+          await navigator.clipboard.writeText(text);
+          document.getElementById("master-prompt-fold").open = true;
+          setProfileStatus("Master prompt copied. Paste it into your preferred AI assistant with this person's background.", "ok");
+        } catch (err) {
+          document.getElementById("master-prompt-fold").open = true;
+          if (masterPromptText.textContent.trim()) {
+            setProfileStatus("Could not copy. The prompt is open below so you can select it.", "err");
+          } else {
+            setProfileStatus(String(err.message || err), "err");
+          }
+        } finally {
+          button.disabled = false;
+        }
+      });
+      document.getElementById("save-master").addEventListener("click", async () => {
+        const button = document.getElementById("save-master");
+        button.disabled = true;
+        setProfileStatus("Saving the master…");
+        try {
+          const res = await fetch("/api/master", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: profileId, yaml: masterEl.value }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error((data.errors || ["Could not save the master."]).join("\n"));
+          masterEl.value = data.yaml || masterEl.value;
+          loadedMasterId = data.id || profileId;
+          const profilesRes = await fetch("/api/profiles");
+          const profiles = await profilesRes.json();
+          if (!profilesRes.ok) throw new Error((profiles.errors || ["Could not refresh profiles."]).join("\n"));
+          window.cvboothProfile.publish(profiles);
+          setProfileStatus("Master saved for " + (data.name || "this profile") + ".", "ok");
+        } catch (err) {
+          setProfileStatus(String(err.message || err), "err");
+        } finally {
+          button.disabled = false;
+        }
+      });
+      document.getElementById("new-profile-name").addEventListener("keydown", (event) => {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        document.getElementById("create-profile").click();
+      });
+      document.getElementById("create-profile").addEventListener("click", async () => {
+        const button = document.getElementById("create-profile");
+        const name = document.getElementById("new-profile-name").value;
+        button.disabled = true;
+        setProfileStatus("Creating the profile…");
+        try {
+          const res = await fetch("/api/profiles", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: name }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error((data.errors || ["Could not create the profile."]).join("\n"));
+          document.getElementById("new-profile-name").value = "";
+          window.cvboothProfile.publish(data);
+          setProfileStatus("Profile created. Paste a master from your AI assistant, or edit the starter and save.", "ok");
+        } catch (err) {
+          setProfileStatus(String(err.message || err), "err");
+        } finally {
+          button.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

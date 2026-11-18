@@ -1,0 +1,21 @@
+# Fictional sample. Edit the local copy in data/master.yaml via the Profile page.
+cv:
+  name: Sample Candidate
+  headline: Software Engineer
+  sections:
+    profile:
+      - Replace this fictional sample with a summary of your own experience.
+    experience:
+      - company: Example Company
+        position: Software Engineer
+        start_date: 2022-08
+        end_date: present
+        highlights:
+          - Replace this example with a factual achievement from your work.
+    skills:
+      - label: Programming
+        details: Replace with your own skills
+design:
+  theme: harvard
+  page:
+    size: us-letter

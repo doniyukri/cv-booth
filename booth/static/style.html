@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="/theme.js"></script>
+    <title>Styling — CV Booth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body class="page-style">
+    <div class="app">
+      <nav class="sidebar" aria-label="Booth">
+        <div class="workspace">
+          <div class="profile-slot">
+            <button type="button" class="brand profile-switch" id="profile-switch" aria-haspopup="listbox" aria-expanded="false" aria-controls="profile-menu">
+              <span class="mark" id="profile-mark" aria-hidden="true">D</span>
+              <span id="profile-label">Profile</span>
+            </button>
+            <div class="profile-menu" id="profile-menu" role="listbox" aria-label="Profiles" hidden></div>
+          </div>
+          <div class="workspace-tools">
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+              <svg class="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M13.2 10.1A5.4 5.4 0 0 1 6 2.6 5.5 5.5 0 1 0 13.2 10.1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              </svg>
+              <svg class="icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="2.35" stroke="currentColor" stroke-width="1.5" />
+                <path d="M8 1.75v1.5M8 12.75v1.5M1.75 8h1.5M12.75 8h1.5M3.4 3.4l1.05 1.05M11.55 11.55l1.05 1.05M12.6 3.4l-1.05 1.05M4.45 11.55 3.4 12.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </button>
+            <a class="create" href="/" title="Compose a CV">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 3.25v9.5M3.25 8h9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            </a>
+          </div>
+        </div>
+        <a class="nav-link" href="/">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="5.25" stroke="currentColor" stroke-width="1.5" />
+            <circle cx="8" cy="8" r="1.6" fill="currentColor" />
+          </svg>
+          Compose
+        </a>
+        <a class="nav-link" href="/#applied">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2.75 3.5h10.5v7.25H8.2L5.4 13v-2.25H2.75V3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+          </svg>
+          Applied
+        </a>
+        <a class="nav-link active" href="/style" aria-current="page">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 4.5h10M3 8h10M3 11.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <circle cx="6" cy="4.5" r="1.35" fill="var(--canvas)" stroke="currentColor" stroke-width="1.5" />
+            <circle cx="10" cy="8" r="1.35" fill="var(--canvas)" stroke="currentColor" stroke-width="1.5" />
+            <circle cx="7" cy="11.5" r="1.35" fill="var(--canvas)" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          Styling
+        </a>
+        <a class="nav-link" href="/#profile">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="5.5" r="2.1" stroke="currentColor" stroke-width="1.5" />
+            <path d="M3.4 12.6c.7-2.1 2.4-3.1 4.6-3.1s3.9 1 4.6 3.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          Profile
+        </a>
+        <p class="sidebar-foot">Master CV<br />Paste stays on Compose</p>
+      </nav>
+
+      <main class="panel">
+        <header class="bar">
+          <div class="crumb">Styling</div>
+          <div class="pager">
+            <button type="button" class="btn" id="prev">Prev</button>
+            <span id="meta">—</span>
+            <button type="button" class="btn" id="next">Next</button>
+          </div>
+        </header>
+        <div class="work">
+          <section class="stage">
+            <div class="waiting" id="waiting" role="status" aria-label="Loading the proof">
+              <div class="sheet" aria-hidden="true">
+                <span class="sheet-progress"></span>
+                <span class="sheet-line name"></span>
+                <span class="sheet-line contact"></span>
+                <span class="sheet-rule"></span>
+                <span class="sheet-line"></span>
+                <span class="sheet-line"></span>
+                <span class="sheet-line mid"></span>
+                <span class="sheet-rule"></span>
+                <span class="sheet-line"></span>
+                <span class="sheet-line mid"></span>
+                <span class="sheet-line short"></span>
+                <span class="sheet-rule"></span>
+                <span class="sheet-line"></span>
+                <span class="sheet-line mid"></span>
+                <span class="sheet-rule"></span>
+                <span class="sheet-line"></span>
+                <span class="sheet-line short"></span>
+              </div>
+            </div>
+            <img id="page" alt="Live CV page" hidden />
+          </section>
+          <div class="properties-resize" role="separator" aria-orientation="vertical" aria-label="Resize properties" aria-valuemin="250" aria-valuenow="250" tabindex="0"></div>
+          <aside class="properties">
+            <div class="prop-head">Properties</div>
+            <p class="status-note" id="status">Loading the master…</p>
+            <label class="field">Sections</label>
+            <ol class="order" id="section-order"></ol>
+            <label class="field" for="alignment">Text</label>
+            <select id="alignment" data-style="alignment">
+              <option value="justified-with-no-hyphenation">Justified</option>
+              <option value="left">Left</option>
+              <option value="justified">Justified, hyphenated</option>
+            </select>
+            <label class="field" for="header">Header</label>
+            <select id="header" data-style="headerAlignment">
+              <option value="center">Centered</option>
+              <option value="left">Left</option>
+            </select>
+            <label class="field" for="title">Section titles</label>
+            <select id="title" data-style="sectionTitle">
+              <option value="centered_with_centered_partial_line">Centered rules</option>
+              <option value="with_full_line">Left, full rule</option>
+              <option value="centered_with_full_line">Centered, rule below</option>
+              <option value="without_line">No rule</option>
+            </select>
+            <div id="sliders"></div>
+            <button type="button" class="text" id="reset">Reset to master</button>
+          </aside>
+        </div>
+      </main>
+    </div>
+    <script src="/profile.js"></script>
+    <script src="/properties.js"></script>
+    <script>
+      const STORE_STYLE = "cvbooth.public.v1.style";
+      const STORE_PAPER = "cvbooth.public.v1.pageSize";
+      let profileId = "default";
+      const SLIDERS = [
+        ["body", "Body", 8, 12, 0.5, "pt"],
+        ["lineSpacing", "Line gap", 1, 16, 0.1, "pt"],
+        ["name", "Name", 18, 36, 0.5, "pt"],
+        ["headline", "Headline", 8, 14, 0.5, "pt"],
+        ["connections", "Contact", 7, 11, 0.5, "pt"],
+        ["top", "Top margin", 0.3, 1, 0.01, "in"],
+        ["bottom", "Bottom margin", 0.3, 1, 0.01, "in"],
+        ["side", "Side margin", 0.3, 1, 0.01, "in"],
+        ["sectionAbove", "Before section", 4, 28, 1, "pt"],
+        ["sectionBelow", "After section title", 4, 24, 1, "pt"],
+        ["betweenJobs", "Between jobs", 0, 24, 1, "pt"],
+        ["betweenSkills", "Between skill rows", 0, 16, 1, "pt"],
+        ["beforeBullets", "Role to bullets", 0, 16, 1, "pt"],
+        ["betweenBullets", "Between bullets", 0, 16, 1, "pt"],
+        ["bulletIndent", "Bullet indent", 4, 24, 1, "pt"],
+      ];
+      const statusEl = document.getElementById("status");
+      const pageEl = document.getElementById("page");
+      const waitingEl = document.getElementById("waiting");
+      const metaEl = document.getElementById("meta");
+      let defaults = null;
+      let pages = [];
+      let index = 0;
+      let timer = null;
+      let requestId = 0;
+
+      function paper() {
+        return localStorage.getItem(window.cvboothProfile.key(STORE_PAPER, profileId)) || "letter";
+      }
+
+      function sectionKeys() {
+        return [...document.querySelectorAll("#section-order li")].map((li) => li.dataset.key);
+      }
+
+      function currentStyle() {
+        const style = {};
+        document.querySelectorAll("[data-style]").forEach((el) => {
+          style[el.dataset.style] = el.value;
+        });
+        document.querySelectorAll("#sliders input").forEach((el) => {
+          style[el.dataset.key] = Number(el.value);
+        });
+        style.sections = sectionKeys();
+        return style;
+      }
+
+      function labelFor(key) {
+        return key.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+      }
+
+      function renderOrder(keys) {
+        const list = document.getElementById("section-order");
+        list.replaceChildren();
+        keys.forEach((key, index) => {
+          const item = document.createElement("li");
+          item.dataset.key = key;
+          const name = document.createElement("span");
+          name.textContent = labelFor(key);
+          const buttons = document.createElement("span");
+          const up = document.createElement("button");
+          up.type = "button";
+          up.textContent = "Up";
+          up.disabled = index === 0;
+          up.addEventListener("click", () => moveSection(index, -1));
+          const down = document.createElement("button");
+          down.type = "button";
+          down.textContent = "Down";
+          down.disabled = index === keys.length - 1;
+          down.addEventListener("click", () => moveSection(index, 1));
+          buttons.append(up, down);
+          item.append(name, buttons);
+          list.append(item);
+        });
+      }
+
+      function moveSection(index, delta) {
+        const keys = sectionKeys();
+        const next = index + delta;
+        if (next < 0 || next >= keys.length) return;
+        const [item] = keys.splice(index, 1);
+        keys.splice(next, 0, item);
+        renderOrder(keys);
+        save();
+        schedule();
+      }
+
+      function save() {
+        localStorage.setItem(window.cvboothProfile.key(STORE_STYLE, profileId), JSON.stringify(currentStyle()));
+      }
+
+      function buildSliders(values) {
+        const root = document.getElementById("sliders");
+        root.replaceChildren();
+        for (const [key, label, min, max, step, unit] of SLIDERS) {
+          const wrap = document.createElement("label");
+          wrap.className = "slider";
+          const name = document.createElement("span");
+          name.textContent = label;
+          const out = document.createElement("output");
+          const input = document.createElement("input");
+          input.type = "range";
+          input.min = String(min);
+          input.max = String(max);
+          input.step = String(step);
+          input.dataset.key = key;
+          input.value = String(values[key] == null ? min : values[key]);
+          out.textContent = input.value + unit;
+          input.addEventListener("input", () => {
+            out.textContent = input.value + unit;
+            save();
+            schedule();
+          });
+          wrap.append(name, out, input);
+          root.append(wrap);
+        }
+      }
+
+      function fill(values) {
+        document.querySelectorAll("select[data-style]").forEach((el) => {
+          if (values[el.dataset.style]) el.value = values[el.dataset.style];
+        });
+        buildSliders(values);
+        const order = Array.isArray(values.sections) && values.sections.length
+          ? values.sections
+          : (defaults && defaults.sections) || [];
+        renderOrder(order);
+      }
+
+      function show() {
+        const shot = pages[index];
+        if (!shot) return;
+        waitingEl.hidden = true;
+        pageEl.hidden = false;
+        pageEl.src = "data:image/png;base64," + shot;
+        metaEl.textContent = pages.length === 1 ? "1 page" : index + 1 + " / " + pages.length;
+      }
+
+      function schedule() {
+        clearTimeout(timer);
+        timer = setTimeout(render, 400);
+      }
+
+      async function render() {
+        const id = ++requestId;
+        const requested = profileId;
+        statusEl.textContent = "Rendering…";
+        try {
+          const res = await fetch("/api/preview", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              yaml: "",
+              page_size: paper(),
+              style: currentStyle(),
+              profile_id: requested,
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error((data.errors || ["Render failed."]).join("\n"));
+          if (id !== requestId || requested !== profileId) return;
+          pages = data.pages || [];
+          if (index >= pages.length) index = 0;
+          show();
+          const count = data.pageCount || pages.length;
+          statusEl.textContent = count === 1 ? "One page." : count + " pages. This is the master, not a tailored paste.";
+        } catch (err) {
+          if (id !== requestId || requested !== profileId) return;
+          statusEl.textContent = String(err.message || err);
+        }
+      }
+
+      document.querySelectorAll("select[data-style]").forEach((el) => {
+        el.addEventListener("change", () => {
+          save();
+          schedule();
+        });
+      });
+      document.getElementById("prev").addEventListener("click", () => {
+        if (!pages.length) return;
+        index = (index - 1 + pages.length) % pages.length;
+        show();
+      });
+      document.getElementById("next").addEventListener("click", () => {
+        if (!pages.length) return;
+        index = (index + 1) % pages.length;
+        show();
+      });
+      document.getElementById("reset").addEventListener("click", () => {
+        localStorage.removeItem(window.cvboothProfile.key(STORE_STYLE, profileId));
+        if (defaults) fill(defaults);
+        schedule();
+      });
+
+      function bootStyle() {
+        const requested = profileId;
+        fetch("/api/style?id=" + encodeURIComponent(requested))
+          .then((res) => res.json().then((data) => ({ ok: res.ok, data: data })))
+          .then((result) => {
+            if (requested !== profileId) return;
+            if (!result.ok) throw new Error((result.data.errors || ["Could not read the style."]).join("\n"));
+            defaults = result.data.style || {};
+            let saved = null;
+            try {
+              saved = JSON.parse(localStorage.getItem(window.cvboothProfile.key(STORE_STYLE, requested)) || "null");
+            } catch (err) {
+              saved = null;
+            }
+            fill(saved || defaults);
+            render();
+          })
+          .catch((err) => {
+            if (requested !== profileId) return;
+            statusEl.textContent = String(err.message || err);
+          });
+      }
+
+      document.addEventListener("cvbooth:profile-save", () => {
+        if (defaults) save();
+      });
+      document.addEventListener("cvbooth:profile-error", (event) => {
+        statusEl.textContent = (event.detail && event.detail.message) || "Could not switch profile.";
+      });
+      document.addEventListener("cvbooth:profile", (event) => {
+        profileId = event.detail.active || "default";
+        bootStyle();
+      });
+      window.cvboothProfile.ready
+        .then((data) => {
+          profileId = data.active || "default";
+          bootStyle();
+        })
+        .catch((err) => { statusEl.textContent = String(err.message || err); });
+    </script>
+  </body>
+</html>

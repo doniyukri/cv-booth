@@ -1,0 +1,43 @@
+[project]
+name = "cv-booth"
+version = "0.1.0"
+description = "Local, AI assistant agnostic CV tailoring and PDF rendering"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = [
+  "Jinja2>=3.1.6",
+  "markdown>=3.10.2",
+  "phonenumbers>=9.0.24",
+  "pydantic-extra-types>=2.11.0",
+  "pydantic[email]>=2.12.5",
+  "ruamel.yaml>=0.19.1",
+  "typer>=0.24.1",
+  "watchdog>=6.0.0",
+  "typst>=0.14.8",
+  "rendercv-fonts>=0.5.1",
+  "packaging>=26.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=9.0.2", "black>=26.3.1", "ruff>=0.15.7"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+extend-exclude = "src/rendercv"
+
+[tool.ruff]
+line-length = 88
+extend-exclude = ["src/rendercv"]
+
+[tool.ruff.lint]
+extend-select = ["I"]
