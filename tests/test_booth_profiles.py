@@ -13,7 +13,13 @@ from booth.profiles import (
     starter_master,
     validate_master_text,
 )
-from booth.prompt import cv_name, master_prompt, tailor_prompt
+from booth.prompt import (
+    cv_name,
+    density_guidance,
+    master_prompt,
+    prompt_yaml,
+    tailor_prompt,
+)
 
 
 def _paths(tmp_path: Path) -> dict[str, Path]:
@@ -140,3 +146,37 @@ class TestMasterPrompt:
         prompt = tailor_prompt({"cv": {"name": "Ada Lovelace", "sections": {}}})
         assert prompt.startswith("You are tailoring Ada Lovelace's CV")
         assert cv_name({}) == "the candidate"
+
+    def test_density_targets_use_the_current_candidates_employers(self) -> None:
+        master = {
+            "cv": {
+                "sections": {
+                    "experience": [
+                        {
+                            "company": "Independent Example Projects",
+                            "highlights": ["A"],
+                        },
+                        {"company": "Example Commerce", "highlights": ["A", "B", "C"]},
+                    ]
+                }
+            }
+        }
+        guidance = density_guidance(master)
+        assert "3 relevant bullets for Independent Example Projects" in guidance
+        assert "8-10 relevant bullets for Example Commerce" in guidance
+        assert "not permission to invent" in guidance
+
+    def test_source_slice_quotes_dates_phone_and_punctuation(self) -> None:
+        from ruamel.yaml import YAML
+
+        source = {
+            "phone": "+12025550100",
+            "experience": [{"start_date": 2018, "end_date": "present"}],
+            "profile": ['Built: [example](https://example.com), called "Example".'],
+        }
+        quoted = prompt_yaml(source)
+        data = YAML(typ="safe", pure=True).load(quoted)
+        assert data["phone"] == source["phone"]
+        assert data["experience"][0]["start_date"] == "2018"
+        assert data["profile"] == source["profile"]
+        assert 'phone: "+12025550100"' in quoted

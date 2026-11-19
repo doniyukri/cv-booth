@@ -129,22 +129,23 @@ skills:
             <div class="status" id="status" role="status"></div>
             <p class="help">
               Copy the prompt into your preferred AI assistant with the job description, then paste its YAML here.
+              You can include contact fields and education at the top level. Omitted fields keep the master; included lists replace the whole list. The master is unchanged.
               Design stays locked on the master unless you change it on the styling page.
               Extra YAML keys are rejected. A proof of two or more pages shows every page. Download stays blocked until the CV is one page.
             </p>
             <div class="prop-head">Paper</div>
             <div class="paper" role="radiogroup" aria-label="Paper size">
               <label>
-                <input type="radio" name="page-size" value="letter" checked />
+                <input type="radio" name="page-size" value="letter" />
                 Letter
               </label>
               <label>
-                <input type="radio" name="page-size" value="a4" />
+                <input type="radio" name="page-size" value="a4" checked />
                 A4
               </label>
             </div>
             <p class="help">
-              Letter is the default. Switch to A4 if the proof overflows to two pages.
+              A4 is the default for this layout. Letter is also available.
               The PDF name comes from <code>position</code> and <code>company</code>. Those two keys are required.
             </p>
           </aside>
@@ -307,7 +308,7 @@ skills:
       function loadDraft() {
         const saved = localStorage.getItem(draftKey(STORE_YAML));
         yamlEl.value = saved == null ? "" : saved;
-        const paper = localStorage.getItem(draftKey(STORE_PAPER)) || "letter";
+        const paper = localStorage.getItem(draftKey(STORE_PAPER)) || "a4";
         const input = document.querySelector('input[name="page-size"][value="' + paper + '"]');
         if (input) input.checked = true;
       }
@@ -671,7 +672,7 @@ skills:
           if (!shots.length) throw new Error("No preview page.");
           await renderProof(shots);
           const pages = data.pageCount || shots.length;
-          const size = (data.pageSize || "letter").toUpperCase();
+          const size = (data.pageSize || "a4").toUpperCase();
           proofMeta.textContent = size + " · " + pages + (pages === 1 ? " page" : " pages");
           openModal();
           fitStack();
@@ -793,7 +794,7 @@ skills:
       });
       resetBtn.addEventListener("click", () => {
         yamlEl.value = "";
-        document.querySelector('input[name="page-size"][value="letter"]').checked = true;
+        document.querySelector('input[name="page-size"][value="a4"]').checked = true;
         localStorage.removeItem(draftKey(STORE_YAML));
         localStorage.removeItem(draftKey(STORE_PAPER));
         renderApplied();

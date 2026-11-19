@@ -9,11 +9,20 @@ from typing import Any
 from ruamel.yaml import YAML
 from ruamel.yaml.error import YAMLError
 
-CONTENT_KEYS = ("headline", "profile", "experience", "skills", "languages")
+CV_KEYS = (
+    "name",
+    "headline",
+    "location",
+    "email",
+    "phone",
+    "website",
+    "social_networks",
+)
+SECTION_KEYS = ("profile", "experience", "skills", "education", "languages")
+CONTENT_KEYS = CV_KEYS + SECTION_KEYS
 META_KEYS = ("position", "company")
 ALLOWED_KEYS = META_KEYS + CONTENT_KEYS
 _ALLOWED = frozenset(ALLOWED_KEYS)
-_SECTION_KEYS = frozenset({"profile", "experience", "skills", "languages"})
 PAGE_SIZES = {
     "a4": "a4",
     "letter": "us-letter",
@@ -81,9 +90,10 @@ def merge_slice(master: dict[str, Any], slice_data: dict[str, Any]) -> dict[str,
     merged = copy.deepcopy(master)
     cv = merged.setdefault("cv", {})
     sections = cv.setdefault("sections", {})
-    if "headline" in slice_data:
-        cv["headline"] = slice_data["headline"]
-    for key in _SECTION_KEYS:
+    for key in CV_KEYS:
+        if key in slice_data:
+            cv[key] = slice_data[key]
+    for key in SECTION_KEYS:
         if key in slice_data:
             sections[key] = slice_data[key]
     return merged
@@ -108,9 +118,10 @@ def master_slice(master: dict[str, Any]) -> dict[str, Any]:
     cv = master.get("cv", {})
     sections = cv.get("sections", {})
     out: dict[str, Any] = {}
-    if "headline" in cv:
-        out["headline"] = cv["headline"]
-    for key in ("profile", "experience", "skills", "languages"):
+    for key in CV_KEYS:
+        if key in cv:
+            out[key] = cv[key]
+    for key in SECTION_KEYS:
         if key in sections:
             out[key] = sections[key]
     return out
@@ -261,7 +272,7 @@ def apply_design(merged: dict[str, Any], style: Any) -> dict[str, Any]:
 
 
 def apply_page_size(merged: dict[str, Any], page_size: str) -> dict[str, Any]:
-    key = (page_size or "letter").strip().lower()
+    key = (page_size or "a4").strip().lower()
     if key not in PAGE_SIZES:
         raise MergeError(["Paper size must be a4 or letter."])
     design = merged.setdefault("design", {})

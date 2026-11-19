@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from ruamel.yaml import YAML
 
 from booth.applications import list_applications
+from booth.design import apply_design_defaults
 from booth.merge import (
     MergeError,
     application_meta,
@@ -99,7 +100,7 @@ def load_master(profile: Any | None = None) -> dict[str, Any]:
     data = yaml.load(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         raise MergeError(["Master YAML is missing or invalid."])
-    return data
+    return apply_design_defaults(data)
 
 
 def format_rendercv_errors(exc: RenderCVUserValidationError) -> list[str]:
@@ -130,7 +131,7 @@ def prepare_job(
     payload: dict[str, Any],
 ) -> tuple[dict[str, Any], str, str, str, str, str, str]:
     paste = str(payload.get("yaml") or "")
-    page_size = str(payload.get("page_size") or "letter")
+    page_size = str(payload.get("page_size") or "a4")
     profile = profile_from_id(str(payload.get("profile_id") or ""))
     if not profile.master_path.is_file():
         raise MergeError([f"Master YAML is missing: {profile.master_path.name}"])
@@ -145,10 +146,10 @@ def prepare_job(
     else:
         slice_data = {}
         position, company = "Preview", "Master"
-    merged = merge_slice(master, slice_data)
+    merged = merge_slice(apply_design_defaults(master), slice_data)
     apply_design(merged, payload.get("style"))
     apply_page_size(merged, page_size)
-    name = str(master.get("cv", {}).get("name") or "")
+    name = str(merged.get("cv", {}).get("name") or "")
     filename = pdf_filename(name, position, company, date.today().isoformat())
     return (
         merged,

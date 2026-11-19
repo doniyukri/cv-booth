@@ -5,6 +5,11 @@ Copy a prompt, ask an assistant to tailor your CV for a job, paste its YAML resp
 and preview or download a one-page PDF. No AI API key or provider account is required
 by the app.
 
+The default PDF layout is one-page A4 with XCharter serif typography, a centered
+header, section headings between horizontal rules, bold employers, italic roles,
+and right-aligned dates. Use Styling to adjust it; existing explicit layout
+settings are preserved.
+
 ## Run locally
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git, then:

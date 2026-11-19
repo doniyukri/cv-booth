@@ -12,6 +12,7 @@ from typing import Any
 from ruamel.yaml import YAML
 from ruamel.yaml.error import YAMLError
 
+from booth.design import default_design
 from booth.merge import MergeError, slug_part, strip_fences
 from booth.prompt import dump_yaml
 from rendercv.exception import RenderCVUserError, RenderCVUserValidationError
@@ -41,10 +42,7 @@ def starter_master(name: str) -> str:
                     ],
                 },
             },
-            "design": {
-                "theme": "harvard",
-                "page": {"size": "us-letter"},
-            },
+            "design": default_design(),
         }
     )
 

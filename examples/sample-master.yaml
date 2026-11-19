@@ -1,21 +1,103 @@
+# Fictional sample. Personal CVs belong in the ignored data directory.
 # Fictional sample. Edit the local copy in data/master.yaml via the Profile page.
 cv:
   name: Sample Candidate
   headline: Software Engineer
   sections:
     profile:
-      - Replace this fictional sample with a summary of your own experience.
+      - Software engineer building accessible web applications and reliable
+        APIs. This fictional example demonstrates the default CV layout.
     experience:
       - company: Example Company
         position: Software Engineer
         start_date: 2022-08
         end_date: present
         highlights:
-          - Replace this example with a factual achievement from your work.
+          - Built web interfaces with reusable components and automated tests.
+          - Worked with designers and engineers to improve application
+            performance.
     skills:
-      - label: Programming
-        details: Replace with your own skills
+      - label: Frontend
+        details: JavaScript, TypeScript, HTML, CSS
+      - label: Backend
+        details: Python, REST APIs, SQL
+    education:
+      - institution: Example University
+        area: Computer Science
+        degree: BS
+        location: Example City
+        start_date: '2018'
+        end_date: '2022'
+    languages:
+      - label: English
+        details: Professional
+  location: Example City
+  email: sample@example.com
+  website: https://example.com
 design:
   theme: harvard
   page:
-    size: us-letter
+    size: a4
+    top_margin: 0.5in
+    bottom_margin: 0.5in
+    left_margin: 0.5in
+    right_margin: 0.5in
+    show_footer: false
+    show_top_note: false
+  colors:
+    links: rgb(40, 40, 40)
+  typography:
+    font_family: XCharter
+    line_spacing: 0.62em
+    alignment: justified-with-no-hyphenation
+    font_size:
+      body: 10pt
+      name: 26pt
+      headline: 10.5pt
+      connections: 8pt
+      section_titles: 1.15em
+    small_caps:
+      section_titles: true
+  header:
+    space_below_name: 0.12cm
+    space_below_headline: 0.28cm
+    space_below_connections: 0.42cm
+    connections:
+      phone_number_format: international
+      display_urls_instead_of_usernames: true
+      separator: •
+      space_between_connections: 0.14cm
+    alignment: center
+  section_titles:
+    line_thickness: 0.5pt
+    space_above: 0.45cm
+    space_below: 0.18cm
+    type: centered_with_centered_partial_line
+  sections:
+    allow_page_break: false
+    space_between_regular_entries: 0.9em
+    space_between_text_based_entries: 0.22em
+  entries:
+    allow_page_break: false
+    degree_width: 0cm
+    date_and_location_width: 3.6cm
+    highlights:
+      space_above: 0.06cm
+      space_between_items: 0.08em
+      space_between_bullet_and_text: 0.45em
+  templates:
+    date_range: START_DATE to END_DATE
+    education_entry:
+      main_column: |-
+        **INSTITUTION** -- LOCATION
+        *DEGREE_WITH_AREA*
+        HIGHLIGHTS
+      degree_column:
+      date_and_location_column: DATE
+    experience_entry:
+      main_column: |-
+        **COMPANY**
+        *POSITION*
+        SUMMARY
+        HIGHLIGHTS
+      date_and_location_column: DATE
