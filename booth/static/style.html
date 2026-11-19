@@ -113,6 +113,7 @@
             <p class="status-note" id="status">Loading the master…</p>
             <label class="field">Sections</label>
             <ol class="order" id="section-order"></ol>
+            <p class="help">Sections without content are skipped in the PDF.</p>
             <label class="field" for="alignment">Text</label>
             <select id="alignment" data-style="alignment">
               <option value="justified-with-no-hyphenation">Justified</option>
@@ -206,11 +207,13 @@
           const up = document.createElement("button");
           up.type = "button";
           up.textContent = "Up";
+          up.setAttribute("aria-label", "Move " + labelFor(key) + " up");
           up.disabled = index === 0;
           up.addEventListener("click", () => moveSection(index, -1));
           const down = document.createElement("button");
           down.type = "button";
           down.textContent = "Down";
+          down.setAttribute("aria-label", "Move " + labelFor(key) + " down");
           down.disabled = index === keys.length - 1;
           down.addEventListener("click", () => moveSection(index, 1));
           buttons.append(up, down);
@@ -269,7 +272,8 @@
         const order = Array.isArray(values.sections) && values.sections.length
           ? values.sections
           : (defaults && defaults.sections) || [];
-        renderOrder(order);
+        const available = (defaults && defaults.sections) || [];
+        renderOrder([...new Set([...order, ...available])]);
       }
 
       function show() {

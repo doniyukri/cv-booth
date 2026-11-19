@@ -2,7 +2,14 @@
 
 import pytest
 
-from booth.merge import MergeError, master_slice, merge_slice, parse_slice
+from booth.merge import (
+    MergeError,
+    apply_design,
+    master_slice,
+    merge_slice,
+    parse_slice,
+    style_from_master,
+)
 
 
 @pytest.mark.parametrize(
@@ -100,3 +107,61 @@ def test_explicit_empty_lists_clear_only_the_requested_lists() -> None:
     assert merged["cv"]["social_networks"] == []
     assert merged["cv"]["sections"]["education"] == []
     assert merged["cv"]["sections"]["profile"] == ["Keep this summary."]
+
+
+def test_section_order_includes_absent_supported_sections_and_custom_sections() -> None:
+    master = {
+        "cv": {
+            "sections": {
+                "profile": ["Summary."],
+                "projects": ["Custom section."],
+                "experience": [],
+                "skills": [],
+            }
+        }
+    }
+    assert style_from_master(master)["sections"] == [
+        "profile",
+        "projects",
+        "experience",
+        "skills",
+        "education",
+        "languages",
+    ]
+    apply_design(
+        master,
+        {
+            "sections": [
+                "languages",
+                "education",
+                "skills",
+                "experience",
+                "profile",
+                "projects",
+            ]
+        },
+    )
+    # Ordering empty slots should not create headings or content in a PDF.
+    assert list(master["cv"]["sections"]) == [
+        "skills",
+        "experience",
+        "profile",
+        "projects",
+    ]
+    tailored = merge_slice(
+        master, {"education": [{"institution": "Example University"}]}
+    )
+    apply_design(
+        tailored,
+        {
+            "sections": [
+                "languages",
+                "education",
+                "skills",
+                "experience",
+                "profile",
+                "projects",
+            ]
+        },
+    )
+    assert list(tailored["cv"]["sections"])[0] == "education"

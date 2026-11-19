@@ -193,9 +193,12 @@ def style_from_master(master: dict[str, Any]) -> dict[str, Any]:
         "alignment": typo.get("alignment") or "justified-with-no-hyphenation",
         "headerAlignment": header.get("alignment") or "center",
         "sectionTitle": titles.get("type") or "centered_with_centered_partial_line",
-        "sections": [
-            str(key) for key in (master.get("cv") or {}).get("sections") or {}
-        ],
+        "sections": list(
+            dict.fromkeys(
+                [str(key) for key in (master.get("cv") or {}).get("sections") or {}]
+                + list(SECTION_KEYS)
+            )
+        ),
     }
 
 
